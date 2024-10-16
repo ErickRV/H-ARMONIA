@@ -3,9 +3,6 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-#Development purposes only
-H-API/appsettings.Development.json
-
 # User-specific files
 *.rsuser
 *.suo
@@ -341,3 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+#Development purposes only
+/H-API/appsettings.Development.json
