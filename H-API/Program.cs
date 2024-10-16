@@ -3,6 +3,7 @@ using H_API.Services.Interfaces;
 using H_API.Services.Services;
 using HARMONIA.Core.Interfaces;
 using HARMONIA.Core.Services;
+using Microsoft.Extensions.Hosting;
 
 namespace H_API
 {
@@ -19,12 +20,20 @@ namespace H_API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddSingleton<IDbService>(new DbService("mongodb://localhost:27017", "H-ARMONIA"));
+            builder.Services
+                .AddSingleton<IDbService>(new DbService(builder.Configuration.GetValue<string>("DatabaseSettings:ConnectionString"), 
+                builder.Configuration.GetValue<string>("DatabaseSettings:DatabaseName")));
+            
+            
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<ITellemetryService, TellemetryService>();
             builder.Services.AddScoped<IInitService, InitService>();
-
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope()) { 
+                IInitService initService = scope.ServiceProvider.GetService<IInitService>();
+                initService.Init();
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment() || !app.Environment.IsDevelopment())

@@ -49,7 +49,7 @@ namespace HARMONIA.Tests.Servicios
 
             mockDbService.Verify(db => db.InsertDocument(DataBaseContainers.Telemetria, It.Is<HumedalData>(x => 
             x.Nivel == humedalData.Nivel
-            && x.Turbulencia == humedalData.Turbulencia
+            && x.Turbidez == humedalData.Turbidez
             && x.Ph == humedalData.Ph
             && x.Temperatura == humedalData.Temperatura)), Times.Once);
         }

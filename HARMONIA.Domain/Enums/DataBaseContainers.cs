@@ -9,6 +9,7 @@ namespace HARMONIA.Domain.Enums
     public enum DataBaseContainers
     {
         Telemetria, 
+        Usuarios, 
         Sessions
     }
 }
